@@ -51,25 +51,25 @@ public class LexerfulAstCreator {
   }
 
   private AstNode visitNonTerminal(ParseNode node) {
-    List<AstNode> astNodes = new ArrayList<>();
-    for (ParseNode child : node.getChildren()) {
-      AstNode astNode = visit(child);
-      if (astNode == null) {
-        // skip
-      } else if (astNode.hasToBeSkippedFromAst()) {
-        astNodes.addAll(astNode.getChildren());
-      } else {
-        astNodes.add(astNode);
-      }
-    }
 
     RuleDefinition ruleMatcher = (RuleDefinition) node.getMatcher();
 
     Token token = node.getStartIndex() < tokens.size() ? tokens.get(node.getStartIndex()) : null;
     AstNode astNode = new AstNode(ruleMatcher, ruleMatcher.getName(), token);
-    for (AstNode child : astNodes) {
-      astNode.addChild(child);
+
+    for (ParseNode child : node.getChildren()) {
+      AstNode astNodeInt = visit(child);
+      if (astNodeInt == null) {
+        // skip
+      } else if (astNodeInt.hasToBeSkippedFromAst()) {
+        for (AstNode childNode : astNodeInt.getChildren()) {
+          astNode.addChild(childNode);
+        }
+      } else {
+        astNode.addChild(astNodeInt);
+      }
     }
+
     astNode.setFromIndex(node.getStartIndex());
     astNode.setToIndex(node.getEndIndex());
 
