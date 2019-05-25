@@ -30,13 +30,13 @@ public class ParseNode {
 
   private final int startIndex;
   private final int endIndex;
-  private final List<ParseNode> children;
+  private final ParseNode[] children;
   private final Matcher matcher;
 
   public ParseNode(int startIndex, int endIndex, List<ParseNode> children, Matcher matcher) {
     this.startIndex = startIndex;
     this.endIndex = endIndex;
-    this.children = new ArrayList<>(children);
+    this.children = children.toArray(new ParseNode[0]);
     this.matcher = matcher;
   }
 
@@ -47,7 +47,7 @@ public class ParseNode {
     this.startIndex = startIndex;
     this.endIndex = endIndex;
     this.matcher = matcher;
-    this.children = Collections.emptyList();
+    this.children = new ParseNode[0];
   }
 
   public int getStartIndex() {
@@ -61,7 +61,7 @@ public class ParseNode {
     return endIndex;
   }
 
-  public List<ParseNode> getChildren() {
+  public ParseNode[] getChildren() {
     return children;
   }
 

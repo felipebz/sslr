@@ -31,7 +31,7 @@ public class ParseTreePrinter {
   }
 
   private static void printLeafs(ParseNode node, char[] input, StringBuilder result) {
-    if (node.getChildren().isEmpty()) {
+    if (node.getChildren().length == 0) {
       for (int i = node.getStartIndex(); i < Math.min(node.getEndIndex(), input.length); i++) {
         result.append(input[i]);
       }
