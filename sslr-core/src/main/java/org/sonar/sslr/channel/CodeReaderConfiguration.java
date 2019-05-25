@@ -54,7 +54,7 @@ public class CodeReaderConfiguration {
    */
   @SuppressWarnings("rawtypes")
   public CodeReaderFilter[] getCodeReaderFilters() {
-    return codeReaderFilters.toArray(new CodeReaderFilter[codeReaderFilters.size()]);
+    return codeReaderFilters.toArray(new CodeReaderFilter[0]);
   }
 
   /**

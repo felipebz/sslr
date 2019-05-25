@@ -58,7 +58,7 @@ public final class AstWalker {
     if (visitor instanceof AstAndTokenVisitor) {
       List<AstAndTokenVisitor> tokenVisitorsList = new ArrayList<>(Arrays.asList(astAndTokenVisitors));
       tokenVisitorsList.add((AstAndTokenVisitor) visitor);
-      astAndTokenVisitors = tokenVisitorsList.toArray(new AstAndTokenVisitor[tokenVisitorsList.size()]);
+      astAndTokenVisitors = tokenVisitorsList.toArray(new AstAndTokenVisitor[0]);
     }
   }
 
@@ -124,7 +124,7 @@ public final class AstWalker {
   }
 
   private void putAstVisitors(AstNodeType type, List<AstVisitor> visitors) {
-    visitorsByNodeType.put(type, visitors.toArray(new AstVisitor[visitors.size()]));
+    visitorsByNodeType.put(type, visitors.toArray(new AstVisitor[0]));
   }
 
   private List<AstVisitor> getAstVisitors(AstNodeType type) {

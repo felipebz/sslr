@@ -59,7 +59,7 @@ public class Lexer {
 
   private Lexer(Builder builder) {
     this.charset = builder.charset;
-    this.preprocessors = builder.preprocessors.toArray(new Preprocessor[builder.preprocessors.size()]);
+    this.preprocessors = builder.preprocessors.toArray(new Preprocessor[0]);
     this.configuration = builder.configuration;
     this.channelDispatcher = builder.getChannelDispatcher();
 
@@ -265,7 +265,7 @@ public class Lexer {
 
     private ChannelDispatcher<Lexer> getChannelDispatcher() {
       ChannelDispatcher.Builder builder = ChannelDispatcher.builder()
-        .addChannels(channels.toArray(new Channel[channels.size()]));
+        .addChannels(channels.toArray(new Channel[0]));
 
       if (failIfNoChannelToConsumeOneCharacter) {
         builder.failIfNoChannelToConsumeOneCharacter();

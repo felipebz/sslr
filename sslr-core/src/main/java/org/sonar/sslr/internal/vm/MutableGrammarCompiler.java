@@ -57,7 +57,7 @@ public class MutableGrammarCompiler extends CompilationHandler {
 
     // Link
 
-    Instruction[] result = instructions.toArray(new Instruction[instructions.size()]);
+    Instruction[] result = instructions.toArray(new Instruction[0]);
     for (int i = 0; i < result.length; i++) {
       Instruction instruction = result[i];
       if (instruction instanceof RuleRefExpression) {

@@ -46,7 +46,7 @@ public class SequenceExpression implements ParsingExpression {
     for (ParsingExpression subExpression : subExpressions) {
       Instruction.addAll(result, compiler.compile(subExpression));
     }
-    return result.toArray(new Instruction[result.size()]);
+    return result.toArray(new Instruction[0]);
   }
 
   @Override

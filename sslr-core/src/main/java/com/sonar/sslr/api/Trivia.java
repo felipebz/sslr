@@ -101,7 +101,7 @@ public class Trivia {
   public static Trivia createSkippedText(List<Token> tokens) {
     Objects.requireNonNull(tokens, "tokens cannot be null");
 
-    return createSkippedText(tokens.toArray(new Token[tokens.size()]));
+    return createSkippedText(tokens.toArray(new Token[0]));
   }
 
   public static Trivia createSkippedText(Token... tokens) {
