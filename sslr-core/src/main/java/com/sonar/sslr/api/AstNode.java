@@ -71,13 +71,20 @@ public class AstNode {
       }
       if (child.hasToBeSkippedFromAst()) {
         if (child.hasChildren()) {
-          for (AstNode subChild : child.children) {
-            addChildToList(subChild);
-          }
+          addChildrenToList(child.children);
         }
       } else {
         addChildToList(child);
       }
+    }
+  }
+
+  private void addChildrenToList(List<AstNode> subChildren) {
+    children.addAll(subChildren);
+    int index = children.size() - subChildren.size();
+    for (AstNode child : subChildren) {
+      child.childIndex = index++;
+      child.parent = this;
     }
   }
 
