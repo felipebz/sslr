@@ -22,6 +22,7 @@ package org.sonar.sslr.internal.vm;
 import org.sonar.sslr.grammar.GrammarException;
 import org.sonar.sslr.internal.matchers.Matcher;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -34,9 +35,7 @@ public abstract class Instruction {
   private static final Instruction IGNORE_ERRORS = new IgnoreErrorsInstruction();
 
   public static void addAll(List<Instruction> list, Instruction[] array) {
-    for (Instruction i : array) {
-      list.add(i);
-    }
+    Collections.addAll(list, array);
   }
 
   public static Instruction jump(int offset) {
