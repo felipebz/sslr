@@ -45,6 +45,7 @@ public class Parser<G extends Grammar> {
   private RuleDefinition rootRule;
   private final Lexer lexer;
   private final G grammar;
+  private CompiledGrammar compiledGrammar;
 
   /**
    * @since 1.16
@@ -79,9 +80,10 @@ public class Parser<G extends Grammar> {
   }
 
   public AstNode parse(List<Token> tokens) {
-    // TODO can be compiled only once
-    CompiledGrammar g = MutableGrammarCompiler.compile((CompilableGrammarRule) rootRule);
-    return LexerfulAstCreator.create(Machine.parse(tokens, g), tokens);
+    if (compiledGrammar == null) {
+      compiledGrammar = MutableGrammarCompiler.compile(rootRule);
+    }
+    return LexerfulAstCreator.create(Machine.parse(tokens, compiledGrammar), tokens);
   }
 
   public G getGrammar() {
@@ -94,6 +96,7 @@ public class Parser<G extends Grammar> {
 
   public void setRootRule(Rule rootRule) {
     this.rootRule = (RuleDefinition) rootRule;
+    compiledGrammar = null;
   }
 
   public static <G extends Grammar> Builder<G> builder(G grammar) {
