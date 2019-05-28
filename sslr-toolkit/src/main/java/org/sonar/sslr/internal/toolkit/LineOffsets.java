@@ -23,10 +23,11 @@ import com.sonar.sslr.api.Token;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class LineOffsets {
 
-  private static final String NEWLINE_REGEX = "(\r)?\n|\r";
+  private static final Pattern NEWLINE_REGEX = Pattern.compile("(\r)?\n|\r");
 
   private final Map<Integer, Integer> lineOffsets = new HashMap<>();
   private final int endOffset;
@@ -34,7 +35,7 @@ public class LineOffsets {
   public LineOffsets(String code) {
     int currentOffset = 0;
 
-    String[] lines = code.split(NEWLINE_REGEX, -1);
+    String[] lines = NEWLINE_REGEX.split(code, -1);
     for (int line = 1; line <= lines.length; line++) {
       lineOffsets.put(line, currentOffset);
       currentOffset += lines[line - 1].length() + 1;
@@ -48,7 +49,7 @@ public class LineOffsets {
   }
 
   public int getEndOffset(Token token) {
-    String[] tokenLines = token.getOriginalValue().split(NEWLINE_REGEX, -1);
+    String[] tokenLines = NEWLINE_REGEX.split(token.getOriginalValue(), -1);
 
     int tokenLastLine = token.getLine() + tokenLines.length - 1;
     int tokenLastLineColumn = (tokenLines.length > 1 ? 0 : token.getColumn()) + tokenLines[tokenLines.length - 1].length();
